@@ -2,10 +2,19 @@ import { useState } from 'react';
 import data from '../data.json';
 import '../styles/cart.css';
 
-const Cart = () => {
-  const [items, setItems] = useState(data);
+interface CartItem {
+  title: string;
+  price: number;
+  image: string;
+  count: number;
+}
 
-  const updateQuantity = (index, delta) => {
+const initialItems: CartItem[] = data;
+
+const Cart = () => {
+  const [items, setItems] = useState<CartItem[]>(initialItems);
+
+  const updateQuantity = (index: number, delta: number) => {
     setItems((prevItems) =>
       prevItems.map((item, i) =>
         i === index ? { ...item, count: Math.max(1, item.count + delta) } : item
